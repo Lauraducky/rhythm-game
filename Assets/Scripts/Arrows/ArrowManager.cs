@@ -24,6 +24,7 @@ public class ArrowManager : MonoBehaviour {
 	void Update () {
 		timer += Time.deltaTime;
 		if (timer > interval) {
+			timer = 0;
 			spawnArrow('N');
 		}
 	}
