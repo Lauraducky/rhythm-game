@@ -6,7 +6,8 @@ public class InputManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) {
+        //deal with up arrow input
+		if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W) || Input.GetKeyDown(KeyCode.JoystickButton3)) {
 			upGoal.trigger();
 		}
 	}
