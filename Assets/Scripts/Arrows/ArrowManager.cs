@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Arrow manager.
+/// A reference manager of and for the arrows in the scene.
+/// </summary>
 public class ArrowManager : MonoBehaviour {
 
-	public static ArrowManager instance;
+	public static ArrowManager AM;
+
+	public float margin = 1;
+	public float speed = 10;
 
 	[SerializeField] Object[] arrows;
 	[SerializeField] Transform[] startPos;
@@ -12,8 +19,10 @@ public class ArrowManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (instance == null) {
-			instance = this;
+
+
+		if (AM == null) {
+			AM = this;
 			DontDestroyOnLoad (this);
 		} else {
 			Destroy(this);

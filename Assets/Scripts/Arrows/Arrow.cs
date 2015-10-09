@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Arrow.
+/// Handles its own input and detection of successful matches.
+/// When the correct input is made while the arrow is within the AM's margin, the object is destroyed 
+/// and a method is run in AM
+/// </summary>
 public class Arrow : MonoBehaviour {
-
-	float speed = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +16,6 @@ public class Arrow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector2 newPos = new Vector2 (transform.position.x, transform.position.y + 1);
-		transform.position = Vector2.Lerp (transform.position, newPos, Time.deltaTime * speed);
+		transform.position += Vector3.up * ArrowManager.AM.speed * Time.deltaTime;
 	}
 }
