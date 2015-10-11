@@ -16,6 +16,7 @@ public class ArrowManager : MonoBehaviour {
 	float timer = 0;
     int lineNum = 1;
     string[] lines;
+    float endTimer = 0;
 
     Queue<Object> upArrows;
     Queue<Object> downArrows;
@@ -56,6 +57,12 @@ public class ArrowManager : MonoBehaviour {
                 spawnArrow('W');
             }
             lineNum++;
+        }
+        if (lineNum >= lines.Length) {
+            endTimer += Time.deltaTime;
+            if (endTimer > 5) {
+                ScoreManager.instance.endGame();
+            }
         }
 	}
 

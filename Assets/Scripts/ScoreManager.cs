@@ -17,6 +17,7 @@ public class ScoreManager : MonoBehaviour {
     string scoretext = "0";
     string combotext = "";
 
+    bool gameEnded = false;
     float guitimer = 0;
     float timerCooldown = 0.25f;
 
@@ -81,5 +82,21 @@ public class ScoreManager : MonoBehaviour {
         GUI.Label(new Rect(10, 10, 100, 20), labeltext);
         GUI.Label(new Rect(10, 30, 100, 20), scoretext);
         GUI.Label(new Rect(10, 50, 100, 20), combotext);
+        if (gameEnded) {
+            GUI.Window(0, new Rect((Screen.width-200)/2, (Screen.height-200)/2, 200, 200), endWindow, "Game Over");
+        }
+    }
+
+    void endWindow(int windowId) {
+        GUI.Label(new Rect(30, 30, 100, 20), "Score: " + scoretext);
+        GUI.Label(new Rect(30, 60, 100, 20), "Best Combo: " + Scores[(int)Score.MaxCombo].ToString());
+        if(GUI.Button(new Rect(30,100,100,20), "Continue")) {
+            print("continue");
+        }
+    }
+
+    public void endGame() {
+        gameEnded = true;
+        breakCombo();
     }
 }
