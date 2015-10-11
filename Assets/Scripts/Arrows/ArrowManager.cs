@@ -7,8 +7,10 @@ public class ArrowManager : MonoBehaviour {
 
 	[SerializeField] Object[] arrows;
 	[SerializeField] Transform[] startPos;
-	[SerializeField] float interval = 0.91666f;
+	[SerializeField] float interval = 0.5454545454545f;
 	float timer = 0;
+    int lineNum = 1;
+    public float speed = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -23,9 +25,17 @@ public class ArrowManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		timer += Time.deltaTime;
-		if (timer >= interval) {
-			timer = 0;
-			spawnArrow('N');
+		if (timer >= interval*lineNum) {
+            lineNum++;
+            if(lineNum%4 == 0) {
+                spawnArrow('N');
+            } else if(lineNum%4 == 1) {
+                spawnArrow('E');
+            } else if(lineNum%4 == 2) {
+                spawnArrow('S');
+            } else {
+                spawnArrow('W');
+            }
 		}
 	}
 

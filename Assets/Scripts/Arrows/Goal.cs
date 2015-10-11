@@ -8,19 +8,24 @@ public class Goal : MonoBehaviour {
     [SerializeField] float perfect = arrowSize/4;
 
     GameObject current;
-	bool ready = false;
-    bool collided = false;
+    GameObject[] arrows;
+    bool ready = false;
     string labeltext = "";
 
     float guitimer = 0;
     float timerCooldown = 0.25f;
 
     void Update() {
-        if(collided) {
-            collided = false;
-            ready = true;
-        } else {
-            ready = false;
+        ready = false;
+        arrows = GameObject.FindGameObjectsWithTag("Arrow");
+        foreach(GameObject arrow in arrows) {
+            if (transform.position.x == arrow.transform.position.x || transform.position.y == arrow.transform.position.y) {
+                float dist = Vector2.Distance(transform.position, arrow.transform.position);
+                if (dist < arrowSize) {
+                    ready = true;
+                    current = arrow;
+                }
+            }
         }
 
         guitimer += Time.deltaTime;
@@ -30,27 +35,16 @@ public class Goal : MonoBehaviour {
         }
     }
 
-	void OnTriggerStay2D (Collider2D col){
-		if (col.gameObject.tag == "Arrow") {
-			current = col.gameObject;
-			collided = true;
-		}
-	}
-
 	public void trigger(){
 		if (ready) {
             float dist = Vector2.Distance(transform.position, current.transform.position);
             if (dist < perfect) {
-                print("Perfect!");
                 labeltext = "Perfect!";
             }else if (dist < good) {
-                print("Good");
                 labeltext = "Good";
             }else if (dist < ok) {
-                print("Ok");
                 labeltext = "Ok";
             } else {
-                print("Bad");
                 labeltext = "Bad";
             }
             guitimer = 0;
