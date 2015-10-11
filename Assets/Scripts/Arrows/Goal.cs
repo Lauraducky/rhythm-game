@@ -7,7 +7,8 @@ public class Goal : MonoBehaviour {
     [SerializeField] float good = arrowSize/2;
     [SerializeField] float perfect = arrowSize/4;
 
-    GameObject current;
+    public char identity;
+    GameObject current = null;
     GameObject[] arrows;
     bool ready = false;
     string labeltext = "";
@@ -17,14 +18,24 @@ public class Goal : MonoBehaviour {
 
     void Update() {
         ready = false;
-        arrows = GameObject.FindGameObjectsWithTag("Arrow");
-        foreach(GameObject arrow in arrows) {
-            if (transform.position.x == arrow.transform.position.x || transform.position.y == arrow.transform.position.y) {
-                float dist = Vector2.Distance(transform.position, arrow.transform.position);
-                if (dist < arrowSize) {
-                    ready = true;
-                    current = arrow;
-                }
+        //arrows = GameObject.FindGameObjectsWithTag("Arrow");
+        //foreach(GameObject arrow in arrows) {
+        //    if (transform.position.x == arrow.transform.position.x || transform.position.y == arrow.transform.position.y) {
+        //        float dist = Vector2.Distance(transform.position, arrow.transform.position);
+        //        if (dist < arrowSize) {
+        //            ready = true;
+        //            current = arrow;
+        //        }
+        //    }
+        //}
+
+        if(current == null) {
+            current = (GameObject)ArrowManager.instance.getArrow(identity);
+        }
+        if (current != null) {
+            float dist = Vector2.Distance(transform.position, current.transform.position);
+            if (dist < arrowSize) {
+                ready = true;
             }
         }
 
@@ -50,9 +61,15 @@ public class Goal : MonoBehaviour {
             guitimer = 0;
             ready = false;
             Destroy(current);
-           
+            current = null;
         }
 	}
+
+    public void delArrow(GameObject arrow) {
+        if(current == arrow || current.Equals(arrow)) {
+            current = null;
+        }
+    }
 
     void OnGUI() {
         GUI.Label(new Rect(10, 10, 100, 20), labeltext);
