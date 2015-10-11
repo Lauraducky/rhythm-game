@@ -49,11 +49,11 @@ public class ArrowManager : MonoBehaviour {
                 line -= 10;
             }
             if(line%1000 != 0) {
-                spawnArrow('W');
+                spawnArrow('S');
                 line -= 100;
             }
             if(line%10000 != 0) {
-                spawnArrow('S');
+                spawnArrow('W');
             }
             lineNum++;
         }

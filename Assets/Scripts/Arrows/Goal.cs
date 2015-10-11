@@ -11,23 +11,9 @@ public class Goal : MonoBehaviour {
     GameObject current = null;
     GameObject[] arrows;
     bool ready = false;
-    string labeltext = "";
-
-    float guitimer = 0;
-    float timerCooldown = 0.25f;
 
     void Update() {
         ready = false;
-        //arrows = GameObject.FindGameObjectsWithTag("Arrow");
-        //foreach(GameObject arrow in arrows) {
-        //    if (transform.position.x == arrow.transform.position.x || transform.position.y == arrow.transform.position.y) {
-        //        float dist = Vector2.Distance(transform.position, arrow.transform.position);
-        //        if (dist < arrowSize) {
-        //            ready = true;
-        //            current = arrow;
-        //        }
-        //    }
-        //}
 
         if(current == null) {
             current = (GameObject)ArrowManager.instance.getArrow(identity);
@@ -38,27 +24,20 @@ public class Goal : MonoBehaviour {
                 ready = true;
             }
         }
-
-        guitimer += Time.deltaTime;
-        if(guitimer > timerCooldown) {
-            labeltext = "";
-            guitimer = 0;
-        }
     }
 
 	public void trigger(){
 		if (ready) {
             float dist = Vector2.Distance(transform.position, current.transform.position);
             if (dist < perfect) {
-                labeltext = "Perfect!";
+                ScoreManager.instance.updateScore("perfect");
             }else if (dist < good) {
-                labeltext = "Good";
-            }else if (dist < ok) {
-                labeltext = "Ok";
+                ScoreManager.instance.updateScore("good");
+            } else if (dist < ok) {
+                ScoreManager.instance.updateScore("ok");
             } else {
-                labeltext = "Bad";
+                ScoreManager.instance.updateScore("bad");
             }
-            guitimer = 0;
             ready = false;
             Destroy(current);
             current = null;
@@ -69,9 +48,5 @@ public class Goal : MonoBehaviour {
         if(current == arrow || current.Equals(arrow)) {
             current = null;
         }
-    }
-
-    void OnGUI() {
-        GUI.Label(new Rect(10, 10, 100, 20), labeltext);
     }
 }
