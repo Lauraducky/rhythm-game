@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Goal : MonoBehaviour {
     static float arrowSize = 1.9f;
