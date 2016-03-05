@@ -8,7 +8,7 @@ public class ArrowManager : MonoBehaviour {
 
 	public static ArrowManager instance;
 
-	[SerializeField] Object[] arrows;
+	[SerializeField] Object arrow;
 	[SerializeField] Transform[] startPos;
     public float speed = 10;
 
@@ -68,13 +68,13 @@ public class ArrowManager : MonoBehaviour {
 
 	public void spawnArrow(char direction){
 		if (direction == 'N') {
-			upArrows.Enqueue(Instantiate (arrows [0], startPos [0].position, Quaternion.identity));
+			upArrows.Enqueue(Instantiate (arrow, startPos [0].position, Quaternion.identity));
 		} else if (direction == 'E') {
-			rightArrows.Enqueue(Instantiate (arrows [1], startPos [1].position, Quaternion.identity));
+			rightArrows.Enqueue(Instantiate (arrow, startPos [1].position, Quaternion.Euler(0, 0,-90)));
 		} else if (direction == 'S') {
-			downArrows.Enqueue(Instantiate (arrows [2], startPos [2].position, Quaternion.identity));
+			downArrows.Enqueue(Instantiate (arrow, startPos [2].position, Quaternion.Euler(0,0,180)));
 		} else if (direction == 'W') {
-			leftArrows.Enqueue(Instantiate (arrows [3], startPos [3].position, Quaternion.identity));
+			leftArrows.Enqueue(Instantiate (arrow, startPos [3].position, Quaternion.Euler(0,0,90)));
 		}
 	}
 
