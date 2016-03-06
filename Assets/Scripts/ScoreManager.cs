@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour {
     public static ScoreManager instance;
@@ -95,7 +96,8 @@ public class ScoreManager : MonoBehaviour {
         GUI.Label(new Rect(30, 180, 100, 20), "Misses: " + Scores[(int)Score.Misses].ToString());
         GUI.Label(new Rect(30, 210, 100, 20), "Best Combo: " + Scores[(int)Score.MaxCombo].ToString());
         if(GUI.Button(new Rect(30,240,100,20), "Continue")) {
-            print("continue");
+            GUI.enabled = false;
+            SceneManager.LoadScene("menu");
         }
     }
 

@@ -30,7 +30,7 @@ public class ArrowManager : MonoBehaviour {
         leftArrows = new Queue<Object>();
         rightArrows = new Queue<Object>();
 
-        lines = File.ReadAllLines("Assets/Songs/dontyouforget.txt");
+        lines = File.ReadAllLines("Assets/Songs/easy/dontyouforget.txt");
         interval = float.Parse(lines[0]);
 	}
 	
